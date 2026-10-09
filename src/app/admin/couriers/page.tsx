@@ -14,6 +14,7 @@ export default function CouriersPage() {
     phone: '',
     email: '',
     password: '',
+    studentId: '',
     isVerified: true,
   });
 
@@ -38,6 +39,7 @@ export default function CouriersPage() {
         phone: '',
         email: '',
         password: '',
+        studentId: '',
         isVerified: true,
       });
     },
@@ -90,24 +92,38 @@ export default function CouriersPage() {
                     <tr key={c.id} className="hover:bg-slate-50/80 transition-colors">
                       <td className="px-6 py-4">
                         <div className="font-bold text-slate-900">{c.firstName} {c.lastName}</div>
-                        <span className="text-xs text-slate-400">ID: {c.id.substring(0, 8)}...</span>
+                        <div className="flex items-center space-x-2 mt-0.5">
+                          <span className="text-xs text-slate-400">ID: {c.id.substring(0, 8)}...</span>
+                          {c.studentId && (
+                            <span className="inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                              Matricule: {c.studentId}
+                            </span>
+                          )}
+                        </div>
                       </td>
                       <td className="px-6 py-4 space-y-0.5">
                         <div className="text-xs text-slate-800 font-semibold">{c.phone}</div>
                         <div className="text-xs text-slate-400">{c.email}</div>
                       </td>
                       <td className="px-6 py-4">
-                        {profile?.isVerified ? (
-                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800">
-                            <ShieldCheck className="w-3.5 h-3.5" />
-                            <span>Verified</span>
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
-                            <ShieldAlert className="w-3.5 h-3.5" />
-                            <span>Pending</span>
-                          </span>
-                        )}
+                        <div className="flex flex-col space-y-1">
+                          {profile?.isVerified ? (
+                            <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800">
+                              <ShieldCheck className="w-3.5 h-3.5" />
+                              <span>Verified</span>
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                              <ShieldAlert className="w-3.5 h-3.5" />
+                              <span>Pending</span>
+                            </span>
+                          )}
+                          {c.studentCardImageUrl && (
+                            <span className="inline-flex items-center text-[10px] text-blue-600 font-medium">
+                              ✓ Carte Étudiante
+                            </span>
+                          )}
+                        </div>
                       </td>
                       <td className="px-6 py-4">
                         <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
@@ -222,6 +238,17 @@ export default function CouriersPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="courier@voltix.dz"
+                  className="w-full p-2.5 border border-slate-300 rounded-xl"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Student ID (Matricule Universitaire)</label>
+                <input
+                  type="text"
+                  value={formData.studentId}
+                  onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
+                  placeholder="Ex: 202431058921"
                   className="w-full p-2.5 border border-slate-300 rounded-xl"
                 />
               </div>
