@@ -81,6 +81,7 @@ export default function CouriersPage() {
                   <th className="px-6 py-4">Courier Name</th>
                   <th className="px-6 py-4">Contact</th>
                   <th className="px-6 py-4">Verification</th>
+                  <th className="px-6 py-4">Reputation & Level</th>
                   <th className="px-6 py-4">Live Status</th>
                   <th className="px-6 py-4 text-right">Actions</th>
                 </tr>
@@ -123,6 +124,20 @@ export default function CouriersPage() {
                               ✓ Carte Étudiante
                             </span>
                           )}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center space-x-1.5">
+                          <span className="text-amber-500 font-extrabold text-sm flex items-center">
+                            ★ {c.rating ? Number(c.rating).toFixed(1) : '5.0'}
+                          </span>
+                          <span className="text-xs text-slate-400 font-medium">({c.ratingsCount || 0} avis)</span>
+                        </div>
+                        <div className="mt-1 flex items-center space-x-1.5">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                            ⚡ LVL {c.experiencePoints >= 1000 ? 5 : c.experiencePoints >= 600 ? 4 : c.experiencePoints >= 300 ? 3 : c.experiencePoints >= 100 ? 2 : 1}
+                          </span>
+                          <span className="text-[11px] font-medium text-slate-500">{c.experiencePoints || 0} XP</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
