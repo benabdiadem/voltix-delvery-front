@@ -149,7 +149,19 @@ export default function OrdersPage() {
                       <div className="font-semibold text-slate-800">{o.client?.firstName} {o.client?.lastName}</div>
                       <div className="text-xs text-slate-400">{o.client?.phone}</div>
                     </td>
-                    <td className="px-6 py-4 text-slate-700 font-medium">{o.deliveryPoint?.name}</td>
+                    <td className="px-6 py-4 text-slate-700 font-medium">
+                      <div className="font-semibold text-slate-800">{o.deliveryPoint?.name}</div>
+                      {o.blockName && (
+                        <div className="text-xs text-amber-700 font-medium mt-0.5">
+                          🚪 {o.blockName} • {o.floor} (Ch. {o.roomNumber})
+                        </div>
+                      )}
+                      {o.studentActivity === 'STUDYING' && (
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 mt-1">
+                          📚 Étudie
+                        </span>
+                      )}
+                    </td>
                     <td className="px-6 py-4">
                       {o.courier ? (
                         <div>
@@ -242,10 +254,29 @@ export default function OrdersPage() {
                     </div>
 
                     <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                      <p className="text-xs font-bold text-slate-400 uppercase mb-2">Delivery Destination</p>
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="text-xs font-bold text-slate-400 uppercase">Delivery Destination</p>
+                        {orderDetails.studentActivity === 'STUDYING' && (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                            📚 Étudie (Discrétion)
+                          </span>
+                        )}
+                      </div>
                       <p className="font-bold text-slate-900">{orderDetails.deliveryPoint?.name}</p>
-                      <p className="text-xs text-slate-600">{orderDetails.deliveryPoint?.university?.name}</p>
-                      <p className="text-xs text-slate-500">{orderDetails.deliveryPoint?.faculty?.name}</p>
+                      <p className="text-xs text-slate-600">{orderDetails.deliveryPoint?.university?.name} • {orderDetails.deliveryPoint?.faculty?.name}</p>
+                      
+                      {orderDetails.blockName && (
+                        <div className="mt-2.5 p-2.5 bg-amber-50/60 rounded-xl border border-amber-200 text-xs">
+                          <p className="font-bold text-amber-900">
+                            🚪 {orderDetails.blockName} • {orderDetails.floor} • Chambre N° {orderDetails.roomNumber}
+                          </p>
+                          {orderDetails.clientNote && (
+                            <p className="text-[11px] text-amber-800 mt-1 italic">
+                              Instructions: &ldquo;{orderDetails.clientNote}&rdquo;
+                            </p>
+                          )}
+                        </div>
+                      )}
                       {orderDetails.deliveryPoint?.instructions && (
                         <p className="text-[11px] text-slate-400 mt-1 italic">
                           &ldquo;{orderDetails.deliveryPoint.instructions}&rdquo;
