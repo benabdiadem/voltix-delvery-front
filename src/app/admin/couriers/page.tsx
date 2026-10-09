@@ -120,9 +120,14 @@ export default function CouriersPage() {
                             </span>
                           )}
                           {c.studentCardImageUrl && (
-                            <span className="inline-flex items-center text-[10px] text-blue-600 font-medium">
-                              ✓ Carte Étudiante
-                            </span>
+                            <a
+                              href={c.studentCardImageUrl.startsWith('http') ? c.studentCardImageUrl : `http://localhost:5000${c.studentCardImageUrl}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center space-x-1 text-[11px] text-blue-600 font-semibold hover:underline"
+                            >
+                              <span>👁️ Voir Carte Étudiante</span>
+                            </a>
                           )}
                         </div>
                       </td>

@@ -275,6 +275,30 @@ export default function OrdersPage() {
                               Instructions: &ldquo;{orderDetails.clientNote}&rdquo;
                             </p>
                           )}
+                          {(orderDetails.roomDoorImageUrl || orderDetails.blockEntranceImageUrl) && (
+                            <div className="flex items-center space-x-3 mt-2 pt-2 border-t border-amber-200/60">
+                              {orderDetails.roomDoorImageUrl && (
+                                <a
+                                  href={orderDetails.roomDoorImageUrl.startsWith('http') ? orderDetails.roomDoorImageUrl : `http://localhost:5000${orderDetails.roomDoorImageUrl}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="inline-flex items-center space-x-1 text-xs text-amber-900 font-bold hover:underline"
+                                >
+                                  <span>📸 Photo Porte</span>
+                                </a>
+                              )}
+                              {orderDetails.blockEntranceImageUrl && (
+                                <a
+                                  href={orderDetails.blockEntranceImageUrl.startsWith('http') ? orderDetails.blockEntranceImageUrl : `http://localhost:5000${orderDetails.blockEntranceImageUrl}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="inline-flex items-center space-x-1 text-xs text-amber-900 font-bold hover:underline"
+                                >
+                                  <span>🏢 Photo Pavillon</span>
+                                </a>
+                              )}
+                            </div>
+                          )}
                         </div>
                       )}
                       {orderDetails.deliveryPoint?.instructions && (
